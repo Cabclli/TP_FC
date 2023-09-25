@@ -1,5 +1,4 @@
 import os
-
 from flask import Flask
 
 
@@ -25,8 +24,15 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
-    @app.route('/holanda')
-    def holanda():
-        return 'Hola,mundo!'
+    @app.route('/a')
+    def hello():
+        return 'holaaa!'
+
+    from . import db
+    db.init_app(app)
+
+
+
+
 
     return app
