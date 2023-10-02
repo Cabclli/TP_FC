@@ -1,0 +1,21 @@
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block header %}
+  <h1>{% block title %}Canciones{% endblock %}</h1>
+ 
+{% endblock %}
+
+{% block content %}
+  {% for Cancion in canciones %}
+    <article class="post">
+      <html>
+        <div class="agarro">
+            <h2>{{ Cancion['album'] }}  </h2>
+          <h3>{{ Cancion['cancion'] }}  </h3>
+          <div class="about">por {{ Cancion['artista'] }} </div>
+        </div>
+      </html>
+    </article>
+    
+  {% endfor %}
+{% endblock %}
