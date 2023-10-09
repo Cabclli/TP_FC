@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -29,12 +29,18 @@ def create_app(test_config=None):
         return 'holaaa!'
 
     from . import db
-    db.init_app(app)
+    
+    from . import can
+    app.register_blueprint(can.bp)
+    
+    from . import alb
+    app.register_blueprint(alb.bp)
 
-    from . import blog
-    app.register_blueprint(blog.bp)
-    app.add_url_rule('/', endpoint='index')
-
-
+    from . import art
+    app.register_blueprint(art.bp)
+    
+    @app.route("/")
+    def principal():
+        return render_template("base.html")
 
     return app

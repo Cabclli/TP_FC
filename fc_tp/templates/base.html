@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+<nav>
+  <h1>Flaskr</h1>
+  <ul>
+    <li><a href="{{ url_for('alb.index') }}">albums</a></li>
+    <li><a href="{{ url_for('can.index') }}">canciones</a></li>
+  </ul>
+</nav>
