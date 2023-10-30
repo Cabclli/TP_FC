@@ -2,18 +2,18 @@
 {% block header %}
 <h1>{% block title %}ARTISTAS{% endblock %}</h1>
 <BR></BR>
-{% endblock %} {% block content %} {% for artistas in artista %}
+{% endblock %} {% block content %} {% for Artistas in artistas %}
 <article class="post">
   <html>
-    <div class="gorra">
+    <div class="agarro">
      
-      <P>ALBUM</P>
-      <h2>{{ artistas['nombre'] }}</h2>
-      <p>ARTISTA</p>
-      <h3>{{ artistas['albums'] }} </h2>
-      
-      <br />
+      <P>ARTISTA</P>
+      <h2>{{ Artistas['nombre'] }}</h2>
+      <p>ALBUM</p>
+      <h3>{{ Artistas['albums'] }} </h2>
+     
     </div>
+    <br>
   </html>
 </article>
 
