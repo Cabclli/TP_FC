@@ -1,15 +1,22 @@
-<!DOCTYPE html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-<nav>
-  <div class="centered-list">
-    <h1 class="titulo">Flaskr</h1>
-    <ul class="ul_prin">
-      <li class="li_prin"><a href="{{ url_for('alb.index') }}">Albums</a></li>
-      <li class="li_prin">
-        <a href="{{ url_for('can.index') }}">Canciones</a>
-      </li>
-      <li class="li_prin"><a href="{{ url_for('art.index') }}">Artistas</a></li>
-    </ul>
-  </div>
-</nav>
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
+{% block header %}
+<header>
+  <h1>{% block title %}Música{% endblock %}</h1>
+</header>
+{% endblock %} {% block content %}
+<article class="contenido">
+  <body>
+    <div>
+      <h3>
+        <a class="links" href="{{ url_for('Canción.index') }}">Canciones</a>
+      </h3>
+      <h3>
+        <a class="links" href="{{ url_for('Album.index') }}">Albumes</a>
+      </h3>
+      <h3>
+        <a class="links" href="{{ url_for('Artista.index') }}">Artistas</a>
+      </h3>
+    </div>
+  </body>
+</article>
+{% endblock %}

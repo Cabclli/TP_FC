@@ -1,11 +1,12 @@
 BEGIN TRANSACTION;
+
 DROP TABLE IF EXISTS "albums";
 CREATE TABLE IF NOT EXISTS "albums" (
-	"AlbumId"	INTEGER NOT NULL,
+	"AlbumId" INTEGER NOT NULL,
 	"Title"	NVARCHAR(160) NOT NULL,
 	"ArtistId"	INTEGER NOT NULL,
-	PRIMARY KEY("AlbumId" AUTOINCREMENT),
-	FOREIGN KEY("ArtistId") REFERENCES "artists"("ArtistId") ON DELETE NO ACTION ON UPDATE NO ACTION
+	FOREIGN KEY("ArtistId") REFERENCES "artists"("ArtistId") ON DELETE NO ACTION ON UPDATE NO ACTION,
+	PRIMARY KEY("AlbumId" AUTOINCREMENT)
 );
 DROP TABLE IF EXISTS "artists";
 CREATE TABLE IF NOT EXISTS "artists" (
@@ -36,10 +37,10 @@ CREATE TABLE IF NOT EXISTS "tracks" (
 	"Milliseconds"	INTEGER NOT NULL,
 	"Bytes"	INTEGER,
 	"UnitPrice"	NUMERIC(10, 2) NOT NULL,
-	FOREIGN KEY("MediaTypeId") REFERENCES "media_types"("MediaTypeId") ON DELETE NO ACTION ON UPDATE NO ACTION,
-	FOREIGN KEY("AlbumId") REFERENCES "albums"("AlbumId") ON DELETE NO ACTION ON UPDATE NO ACTION,
 	PRIMARY KEY("TrackId" AUTOINCREMENT),
-	FOREIGN KEY("GenreId") REFERENCES "genres"("GenreId") ON DELETE NO ACTION ON UPDATE NO ACTION
+	FOREIGN KEY("AlbumId") REFERENCES "albums"("AlbumId") ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY("GenreId") REFERENCES "genres"("GenreId") ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY("MediaTypeId") REFERENCES "media_types"("MediaTypeId") ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 INSERT INTO "albums" VALUES (1,'For Those About To Rock We Salute You',1);
 INSERT INTO "albums" VALUES (2,'Balls to the Wall',2);
@@ -4196,19 +4197,15 @@ INSERT INTO "tracks" VALUES (3500,'String Quartet No. 12 in C Minor, D. 703 "Qua
 INSERT INTO "tracks" VALUES (3501,'L''orfeo, Act 3, Sinfonia (Orchestra)',345,2,24,'Claudio Monteverdi',66639,1189062,0.99);
 INSERT INTO "tracks" VALUES (3502,'Quintet for Horn, Violin, 2 Violas, and Cello in E Flat Major, K. 407/386c: III. Allegro',346,2,24,'Wolfgang Amadeus Mozart',221331,3665114,0.99);
 INSERT INTO "tracks" VALUES (3503,'Koyaanisqatsi',347,2,10,'Philip Glass',206005,3305164,0.99);
-DROP INDEX IF EXISTS "IFK_AlbumArtistId";
 CREATE INDEX IF NOT EXISTS "IFK_AlbumArtistId" ON "albums" (
 	"ArtistId"
 );
-DROP INDEX IF EXISTS "IFK_TrackAlbumId";
 CREATE INDEX IF NOT EXISTS "IFK_TrackAlbumId" ON "tracks" (
 	"AlbumId"
 );
-DROP INDEX IF EXISTS "IFK_TrackGenreId";
 CREATE INDEX IF NOT EXISTS "IFK_TrackGenreId" ON "tracks" (
 	"GenreId"
 );
-DROP INDEX IF EXISTS "IFK_TrackMediaTypeId";
 CREATE INDEX IF NOT EXISTS "IFK_TrackMediaTypeId" ON "tracks" (
 	"MediaTypeId"
 );

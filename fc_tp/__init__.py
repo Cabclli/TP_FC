@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask, render_template
 
 
@@ -23,24 +24,23 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/a')
-    def hello():
-        return 'holaaa!'
+    @app.route('/')
+    def pagina():
+        return render_template("base.html")
 
     from . import db
-    
-    from . import can
-    app.register_blueprint(can.bp)
-    
-    from . import alb
-    app.register_blueprint(alb.bp)
+    db.init_app(app)
 
-    from . import art
-    app.register_blueprint(art.bp)
-    
-    @app.route("/")
-    def principal():
-        return render_template("base.html")
+    from . import canciones
+    app.register_blueprint(canciones.bp)
+    app.add_url_rule('/', endpoint='Canción.index')
+
+    from . import artistas
+    app.register_blueprint(artistas.bp)
+    app.add_url_rule('/', endpoint='Artista.index')
+
+    from . import albumes
+    app.register_blueprint(albumes.bp)
+    app.add_url_rule('/', endpoint='Album.index')
 
     return app
